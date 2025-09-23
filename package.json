@@ -1,0 +1,21 @@
+{
+  "name": "demoblaze-pw",
+  "version": "1.0.0",
+  "description": "Test automation framework for the DemoBlaze store using Playwright and TypeScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "testui":"npx playwright test --ui",
+    "testchrome":"npx playwright test --project=chromium",
+    "testspecific":"npx playwright test example"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.5.0"
+  }
+}
