@@ -1,15 +1,13 @@
-import { test, expect } from '@playwright/test';
-import HomePage from '../pages/home.page';
+import { test, expect } from './fixtures';
 
 test.describe('DemoBlaze Navigation', () => {
-  
-  test('should navigate to the home page using BasePage method', async ({ page }) => {
-    // 1. Crea una instancia de tu página específica (HomePage)
-    //    Le pasas el objeto 'page' que Playwright te proporciona.
-    const homePage = new HomePage(page);
 
-    // 2. Llama al método 'goto' que está definido en BasePage.
-    //    El test es limpio y legible: "ve a la página de inicio".
+  // 1. Pide 'homePage' como si fuera una fixture nativa de Playwright.
+  //    También puedes seguir pidiendo 'page' si la necesitas directamente.
+  test('should navigate to the home page using a fixture', async ({ page, homePage }) => {
+
+    // 2. Usa el método 'goto' de la instancia 'homePage' que Playwright te ha dado.
+    //    Ya no hay que hacer new HomePage(page) en cada test.
     await homePage.goto('index.html');
 
     // 3. Realiza aserciones para verificar que la acción fue exitosa.
