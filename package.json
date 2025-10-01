@@ -1,12 +1,12 @@
 {
-  "name": "demoblaze-pw",
+  "name": "toolshop-ecommerce-e2e-api-playwright",
   "version": "1.0.0",
   "description": "Test automation framework for the DemoBlaze store using Playwright and TypeScript.",
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
-    "testui":"npx playwright test --ui",
-    "testchrome":"npx playwright test --project=chromium",
+    "test:ui":"npx playwright test --ui",
+    "test:chrome":"npx playwright test --project=chromium",
     "testspecific":"npx playwright test example"
 
   },

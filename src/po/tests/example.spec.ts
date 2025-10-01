@@ -1,7 +1,7 @@
 import { test, expect } from './fixtures';
 
-test.describe('DemoBlaze Navigation', () => {
 
+test.describe('DemoBlaze Navigation', () => {
   // 1. Pide 'homePage' como si fuera una fixture nativa de Playwright.
   //    También puedes seguir pidiendo 'page' si la necesitas directamente.
   test('should navigate to the home page using a fixture', async ({ page, homePage }) => {
@@ -11,8 +11,8 @@ test.describe('DemoBlaze Navigation', () => {
     await homePage.goto('index.html');
 
     // 3. Realiza aserciones para verificar que la acción fue exitosa.
-    await expect(page).toHaveURL('https://www.demoblaze.com/index.html');
-    await expect(homePage.categoriesTitle).toBeVisible();
+    await expect(page).toHaveURL('https://practicesoftwaretesting.com');
+    await expect(homePage.logo).toBeVisible();
   });
 
 });

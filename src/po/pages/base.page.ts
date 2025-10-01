@@ -8,7 +8,7 @@ export default class BasePage {
   }
 
   async goto(path: string) {
-    await this.page.goto(`https://www.demoblaze.com/${path}`);
+    await this.page.goto(`https://practicesoftwaretesting.com/${path}`);
   }
 
 }
