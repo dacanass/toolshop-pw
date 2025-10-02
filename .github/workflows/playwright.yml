@@ -1,0 +1,53 @@
+# Nombre del workflow que aparecerá en la pestaña "Actions" de GitHub
+name: Playwright Tests
+
+# Define cuándo se ejecutará este workflow.
+on:
+  # Ejecutar en cada push a la rama 'main' o 'master'
+  push:
+    branches: [ main, master ]
+  # Ejecutar en cada pull request dirigido a la rama 'main' o 'master'
+  pull_request:
+    branches: [ main, master ]
+  # Permite ejecutar este workflow manualmente desde la pestaña Actions
+  workflow_dispatch:
+
+# Define los trabajos (jobs) que se ejecutarán.
+jobs:
+  test:
+    # El tipo de máquina virtual en la que se ejecutarán las pruebas
+    runs-on: ubuntu-latest
+    # Tiempo máximo de ejecución para el job
+    timeout-minutes: 60
+
+    # Pasos que se ejecutarán en el job
+    steps:
+    # 1. Descarga tu código del repositorio a la máquina virtual
+    - uses: actions/checkout@v4
+
+    # 2. Configura el entorno de Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22' # Puedes usar la versión de Node que prefieras (18, 20, etc.)
+
+    # 3. Instala las dependencias del proyecto (como Playwright)
+    - name: Install dependencies
+      run: npm install # npm install O 'npm ci' para una instalación más rápida y predecible
+
+    # 4. Instala los navegadores que Playwright necesita
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    # 5. Ejecuta las pruebas de Playwright
+    - name: Run Playwright tests
+      run: npx playwright test
+
+    # 6. (Opcional pero muy recomendado) Sube el reporte de resultados
+    # Este paso se ejecuta siempre, incluso si las pruebas fallan, para que puedas ver el reporte.
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30

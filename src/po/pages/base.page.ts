@@ -8,7 +8,9 @@ export default class BasePage {
   }
 
   async goto(path: string) {
-    await this.page.goto(`https://practicesoftwaretesting.com/${path}`);
+    // Usa la variable de entorno BASE_URL si está definida, si no, usa la URL por defecto.
+    const baseUrl = process.env.BASE_URL || 'https://practicesoftwaretesting.com';
+    await this.page.goto(`${baseUrl}/${path}`);
   }
 
 }
