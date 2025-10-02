@@ -52,7 +52,7 @@ jobs:
     # 5. Instala los navegadores solo si no se encontraron en el caché
     - name: Install Playwright Browsers
       if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: npx playwright install --with-deps # --with-deps instala también las dependencias del SO
+      run: npx playwright install --with-deps chromium firefox # Instala solo los navegadores especificados
 
     # 6. Ejecuta las pruebas de Playwright
     - name: Run Playwright tests

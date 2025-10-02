@@ -28,7 +28,7 @@ export default class LoginPage extends BasePage {
   }
 
   async goto(): Promise<void> {
-    super.goto('auth/login')
+    await super.goto('auth/login')
   }
 
 }
