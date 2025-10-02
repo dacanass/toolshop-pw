@@ -33,17 +33,32 @@ jobs:
 
     # 3. Instala las dependencias del proyecto (como Playwright)
     - name: Install dependencies
-      run: npm install # npm install O 'npm ci' para una instalación más rápida y predecible
+      # Usa 'npm ci' en lugar de 'npm install'. Es más rápido y seguro para entornos de CI
+      # porque instala las versiones exactas de tu archivo package-lock.json.
+      run: npm ci
 
-    # 4. Instala los navegadores que Playwright necesita
+    # 4. Revisa si los navegadores están en el caché
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      id: playwright-cache # Se le da un ID para poder referenciar este paso más adelante
+      with:
+        # La ruta donde Playwright guarda los navegadores en sistemas Linux
+        path: ~/.cache/ms-playwright
+        # La clave para el caché. Si el package-lock.json cambia, la clave cambia, invalidando el caché.
+        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-playwright-
+
+    # 5. Instala los navegadores solo si no se encontraron en el caché
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      run: npx playwright install --with-deps # --with-deps instala también las dependencias del SO
 
-    # 5. Ejecuta las pruebas de Playwright
+    # 6. Ejecuta las pruebas de Playwright
     - name: Run Playwright tests
       run: npx playwright test
 
-    # 6. (Opcional pero muy recomendado) Sube el reporte de resultados
+    # 7. (Opcional pero muy recomendado) Sube el reporte de resultados
     # Este paso se ejecuta siempre, incluso si las pruebas fallan, para que puedas ver el reporte.
     - uses: actions/upload-artifact@v4
       if: always()

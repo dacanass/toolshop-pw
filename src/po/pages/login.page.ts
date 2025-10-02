@@ -13,7 +13,7 @@ export default class LoginPage extends BasePage {
 
   constructor(page: Page) {
     super(page)
-    this.emailField = this.page.getByLabel("Email address")
+    this.emailField = this.page.getByLabel("Email address *")
     this.passwordField = this.page.getByLabel("Password *")
     this.submit = this.page.getByRole("button", { name: "Login" })
     this.emailErrorMessage = this.page.getByTestId("email-error")
