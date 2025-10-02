@@ -30,7 +30,9 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    headless: true
+    /*Configuracion manual: Headless mode y definicion del atributo data-testid como data-test */
+    headless: true,
+    testIdAttribute: 'data-test'
   },
 
   /* Configure projects for major browsers */
