@@ -17,6 +17,11 @@ jobs:
   test:
     # El tipo de máquina virtual en la que se ejecutarán las pruebas
     runs-on: ubuntu-latest
+    # Usamos una matriz para crear un job por cada navegador
+    strategy:
+      fail-fast: false # No cancelar otros jobs si uno falla
+      matrix:
+        browser: [chromium, firefox]
     # Tiempo máximo de ejecución para el job
     timeout-minutes: 60
 
@@ -52,11 +57,11 @@ jobs:
     # 5. Instala los navegadores solo si no se encontraron en el caché
     - name: Install Playwright Browsers
       if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: npx playwright install --with-deps chromium firefox # Instala solo los navegadores especificados
+      run: npx playwright install --with-deps ${{ matrix.browser }} # Instala solo el navegador del job actual
 
     # 6. Ejecuta las pruebas de Playwright
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --project=${{ matrix.browser }} # Ejecuta solo las pruebas para el navegador del job actual
 
     # 7. (Opcional pero muy recomendado) Sube el reporte de resultados
     # Este paso se ejecuta siempre, incluso si las pruebas fallan, para que puedas ver el reporte.
