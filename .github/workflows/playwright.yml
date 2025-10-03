@@ -49,10 +49,10 @@ jobs:
       with:
         # La ruta donde Playwright guarda los navegadores en sistemas Linux
         path: ~/.cache/ms-playwright
-        # La clave para el caché. Si el package-lock.json cambia, la clave cambia, invalidando el caché.
-        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+        # La clave del caché debe ser única por navegador para evitar colisiones.
+        key: ${{ runner.os }}-playwright-${{ matrix.browser }}-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-playwright-
+          ${{ runner.os }}-playwright-${{ matrix.browser }}-
 
     # 5. Instala los navegadores solo si no se encontraron en el caché
     - name: Install Playwright Browsers
