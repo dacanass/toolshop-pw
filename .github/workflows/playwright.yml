@@ -61,7 +61,7 @@ jobs:
 
     # 6. Ejecuta las pruebas de Playwright
     - name: Run Playwright tests
-      run: npx playwright test --project=${{ matrix.browser }} # Ejecuta solo las pruebas para el navegador del job actual
+      run: npx playwright test --config=src/config/playwright.config.ts --project=${{ matrix.browser }} # Ejecuta solo las pruebas para el navegador del job actual
 
     # 7. (Opcional pero muy recomendado) Sube el reporte de resultados
     # Este paso se ejecuta siempre, incluso si las pruebas fallan, para que puedas ver el reporte.
