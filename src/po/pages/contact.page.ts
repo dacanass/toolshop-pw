@@ -11,6 +11,7 @@ export default class ContactPage extends BasePage {
   public readonly message: Locator;
   public readonly attachment: Locator;
   public readonly sendButton: Locator;
+  public readonly greetings: Locator;
   public readonly formSentAlert: Locator;
 
   constructor(page: Page) {
@@ -22,6 +23,7 @@ export default class ContactPage extends BasePage {
     this.message = this.page.getByLabel("Message")
     this.attachment = this.page.getByLabel("Attachment")
     this.sendButton = this.page.getByRole("button", { name: "Send" })
+    this.greetings = this.page.getByText("Hello")
     this.formSentAlert = this.page.getByRole("alert")
   }
 
