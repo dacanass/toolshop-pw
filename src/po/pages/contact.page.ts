@@ -13,6 +13,10 @@ export default class ContactPage extends BasePage {
   public readonly sendButton: Locator;
   public readonly greetings: Locator;
   public readonly formSentAlert: Locator;
+  public readonly firstnameAlert: Locator;
+  public readonly lastnameAlert: Locator;
+  public readonly emailAlert: Locator;
+  public readonly messageAlert: Locator;
 
   constructor(page: Page) {
     super(page)
@@ -25,6 +29,11 @@ export default class ContactPage extends BasePage {
     this.sendButton = this.page.getByRole("button", { name: "Send" })
     this.greetings = this.page.getByText("Hello")
     this.formSentAlert = this.page.getByRole("alert")
+    this.firstnameAlert = this.page.getByTestId("first-name-error")
+    this.lastnameAlert = this.page.getByTestId("last-name-error")
+    this.emailAlert = this.page.getByTestId("email-error")
+    this.messageAlert = this.page.getByTestId("message-error")
+
   }
 
   async fillContactForm(usertype: string, subject: string, message: string, firstname?: string, lastname?: string, email?: string) {

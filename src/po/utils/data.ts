@@ -13,8 +13,13 @@ export const errorMessage = {
   loginEmailInvalidFormat: "Email format is invalid",
   loginPasswordEmpty: "Password is required",
   loginPasswordLenght: "Password length is invalid",
-  loginInvalidCredentials: "Invalid email or password"
+  loginInvalidCredentials: "Invalid email or password",
+  contactfirstnameEmpty:"First name is required",
+  contactlastnameEmpty:"Last name is required",
+  contactemailEmpty:"Email is required",
+  contactmessageEmpty:"Message is required",
 }
+
 export const successMessage = {
   contactSentMessage: "Thanks for your message! We will contact you shortly.",
   successRegister: "thanks for register"
