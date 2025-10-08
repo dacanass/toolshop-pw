@@ -18,6 +18,8 @@ export const errorMessage = {
   contactlastnameEmpty:"Last name is required",
   contactemailEmpty:"Email is required",
   contactmessageEmpty:"Message is required",
+  contactemailInvalid:"Email format is invalid",
+  contactmessageInvalid:"Message must be minimal 50 characters"
 }
 
 export const successMessage = {
