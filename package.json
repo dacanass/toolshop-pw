@@ -1,13 +1,13 @@
 {
   "name": "toolshop-ecommerce-e2e-api-playwright",
   "version": "1.0.0",
-  "description": "Test automation framework for the DemoBlaze store using Playwright and TypeScript.",
+  "description": "framework de automatización de pruebas para el sitio web de demostración Toolshop using Playwright and TypeScript.",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test",
-    "test:ui": "npx playwright test --ui",
-    "test:chrome": "npx playwright test --project=chromium",
-    "testspecific": "npx playwright test example",
+    "test": "npx playwright test --config=src/config/playwright.config.ts",
+    "test:ui": "npx playwright test --config=src/config/playwright.config.ts --ui",
+    "test:chrome": "npx playwright test --config=src/config/playwright.config.ts --project=chromium",
+    "testspecific": "npx playwright test example --config=src/config/playwright.config.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write ."

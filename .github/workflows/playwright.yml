@@ -5,10 +5,10 @@ name: Playwright Tests
 on:
   # Ejecutar en cada push a la rama 'main' o 'master'
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   # Ejecutar en cada pull request dirigido a la rama 'main' o 'master'
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
   # Permite ejecutar este workflow manualmente desde la pestaña Actions
   workflow_dispatch:
 
@@ -27,47 +27,47 @@ jobs:
 
     # Pasos que se ejecutarán en el job
     steps:
-    # 1. Descarga tu código del repositorio a la máquina virtual
-    - uses: actions/checkout@v4
+      # 1. Descarga tu código del repositorio a la máquina virtual
+      - uses: actions/checkout@v4
 
-    # 2. Configura el entorno de Node.js
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22' # Puedes usar la versión de Node que prefieras (18, 20, etc.)
+      # 2. Configura el entorno de Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # Puedes usar la versión de Node que prefieras (18, 20, etc.)
 
-    # 3. Instala las dependencias del proyecto (como Playwright)
-    - name: Install dependencies
-      # Usa 'npm ci' en lugar de 'npm install'. Es más rápido y seguro para entornos de CI
-      # porque instala las versiones exactas de tu archivo package-lock.json.
-      run: npm ci
+      # 3. Instala las dependencias del proyecto (como Playwright)
+      - name: Install dependencies
+        # Usa 'npm ci' en lugar de 'npm install'. Es más rápido y seguro para entornos de CI
+        # porque instala las versiones exactas de tu archivo package-lock.json.
+        run: npm ci
 
-    # 4. Revisa si los navegadores están en el caché
-    - name: Cache Playwright browsers
-      uses: actions/cache@v4
-      id: playwright-cache # Se le da un ID para poder referenciar este paso más adelante
-      with:
-        # La ruta donde Playwright guarda los navegadores en sistemas Linux
-        path: ~/.cache/ms-playwright
-        # La clave del caché debe ser única por navegador para evitar colisiones.
-        key: ${{ runner.os }}-playwright-${{ matrix.browser }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-playwright-${{ matrix.browser }}-
+      # 4. Revisa si los navegadores están en el caché
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache # Se le da un ID para poder referenciar este paso más adelante
+        with:
+          # La ruta donde Playwright guarda los navegadores en sistemas Linux
+          path: ~/.cache/ms-playwright
+          # La clave del caché debe ser única por navegador para evitar colisiones.
+          key: ${{ runner.os }}-playwright-${{ matrix.browser }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-${{ matrix.browser }}-
 
-    # 5. Instala los navegadores solo si no se encontraron en el caché
-    - name: Install Playwright Browsers
-      if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: npx playwright install --with-deps ${{ matrix.browser }} # Instala solo el navegador del job actual
+      # 5. Instala los navegadores solo si no se encontraron en el caché
+      - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps ${{ matrix.browser }} # Instala solo el navegador del job actual
 
-    # 6. Ejecuta las pruebas de Playwright
-    - name: Run Playwright tests
-      run: npx playwright test --config=src/config/playwright.config.ts --project=${{ matrix.browser }} # Ejecuta solo las pruebas para el navegador del job actual
+      # 6. Ejecuta las pruebas de Playwright
+      - name: Run Playwright tests
+        run: npx playwright test --config=src/config/playwright.config.ts --project=${{ matrix.browser }} # Ejecuta solo las pruebas para el navegador del job actual
 
-    # 7. (Opcional pero muy recomendado) Sube el reporte de resultados
-    # Este paso se ejecuta siempre, incluso si las pruebas fallan, para que puedas ver el reporte.
-    - uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: playwright-report-${{ matrix.browser }}
-        path: playwright-report/
-        retention-days: 30
+      # 7. (Opcional pero muy recomendado) Sube el reporte de resultados
+      # Este paso se ejecuta siempre, incluso si las pruebas fallan, para que puedas ver el reporte.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 30

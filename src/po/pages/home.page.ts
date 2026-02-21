@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './base.page';
-import { link } from 'fs';
+// import { link } from 'fs';
 
 export default class HomePage extends BasePage {
   // Puedes definir localizadores específicos de esta página aquí

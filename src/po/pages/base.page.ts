@@ -12,5 +12,4 @@ export default class BasePage {
     const baseUrl = process.env.BASE_URL || 'https://practicesoftwaretesting.com';
     await this.page.goto(`${baseUrl}/${path}`);
   }
-
 }

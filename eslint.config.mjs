@@ -8,7 +8,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 export default [
   { files: ['**/*.{js,mjs,cjs,ts}'] },
   { languageOptions: { globals: globals.node } },
-  
+
   // Configuraciones recomendadas
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,

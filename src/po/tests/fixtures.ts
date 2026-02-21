@@ -21,14 +21,14 @@ export const test = base.extend<MyFixtures>({
     await use(new HomePage(page));
   },
   headerBar: async ({ page }, use) => {
-    await use(new HeaderbarComponent(page))
+    await use(new HeaderbarComponent(page));
   },
-  loginPage: async ({page}, use) => {
-    await use(new LoginPage(page))
+  loginPage: async ({ page }, use) => {
+    await use(new LoginPage(page));
   },
-  contactPage: async ({page}, use) => {
-    await use(new ContactPage(page))
-  }
+  contactPage: async ({ page }, use) => {
+    await use(new ContactPage(page));
+  },
 });
 
 export { expect } from '@playwright/test';
