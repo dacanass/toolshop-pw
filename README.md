@@ -8,6 +8,10 @@ El objetivo principal de este proyecto es servir como un ejemplo práctico y rob
 
 Las pruebas se ejecutan contra un entorno de demostración, simulando interacciones de usuario reales para garantizar la calidad y el correcto funcionamiento de la aplicación web.
 
+## Repositorio(s) guia(s):
+- learning-playwright-5911873: https://github.com/LinkedInLearning/learning-playwright-5911873.git
+- playwright-essential-training-abstractions-fixtures-and-complex-scenarios-4278224: https://github.com/LinkedInLearning/playwright-essential-training-abstractions-fixtures-and-complex-scenarios-4278224.git
+
 ---
 
 ## ✨ Features Implementados
