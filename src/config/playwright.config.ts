@@ -39,9 +39,18 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    //Storage state - Session reuse
+    //donde se guardara el archivo de sesion
+    {
+      name:'setup',
+      testMatch: /.*\.setup\.ts/, //Archivo que hara el login
+    },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], 
+      storageState: '../../.auth/user.json', //Aqui le decimos a los tests que usen el estado guardado
+     },
+      dependencies:['setup'], //Esto asegura que el setup corra primero
     },
 
     {

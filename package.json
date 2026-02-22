@@ -8,6 +8,7 @@
     "test:ui": "npx playwright test --config=src/config/playwright.config.ts --ui",
     "test:chrome": "npx playwright test --config=src/config/playwright.config.ts --project=chromium",
     "testspecific": "npx playwright test example --config=src/config/playwright.config.ts",
+    "codegen":"npx playwright codegen",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write ."
