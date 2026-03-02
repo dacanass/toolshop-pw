@@ -1,12 +1,18 @@
 import { defineConfig, devices } from '@playwright/test';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import dotenv from 'dotenv';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -48,7 +54,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'], 
-      storageState: '../../.auth/user.json', //Aqui le decimos a los tests que usen el estado guardado
+      // storageState: '../../.auth/user.json', //Aqui le decimos a los tests que usen el estado guardado
      },
       dependencies:['setup'], //Esto asegura que el setup corra primero
     },

@@ -1,5 +1,7 @@
 import { test, expect } from './fixtures';
 import { errorMessage, userData } from '../utils/data';
+import { registerUser } from '../../lib/datafactory/register';
+import { createRandomUser } from '../../lib/datafactory/userModel';
 
 test.describe('Login Feature', async () => {
   const { email, password } = userData;
@@ -7,6 +9,18 @@ test.describe('Login Feature', async () => {
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.goto();
   });
+
+  test('should login with newly registered user', async ({ page, loginPage, request }) => {
+    const newUser= createRandomUser();
+    await registerUser(request, newUser);
+    await loginPage.goto();
+    await loginPage.login(newUser.email, newUser.password);
+    await expect(page).toHaveURL(/.*account/);
+    // await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
+    await expect(page.getByTestId("nav-menu")).toContainText(newUser.first_name);
+    await expect(page.getByTestId("page-title")).toContainText("My account")
+  });
+
 
   test('should succesfuly login with valid credentials', async ({ page, loginPage }) => {
     await loginPage.login(`${email[0]}`, `${password}`);
