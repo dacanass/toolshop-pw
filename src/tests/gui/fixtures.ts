@@ -1,8 +1,8 @@
 import { test as base } from '@playwright/test';
-import HomePage from '../pages/home.page';
-import HeaderbarComponent from '../components/header-bar.component';
-import LoginPage from '../pages/login.page';
-import ContactPage from '../pages/contact.page';
+import HomePage from '../../po/pages/home.page';
+import HeaderbarComponent from '../../po/components/header-bar.component';
+import LoginPage from '../../po/pages/login.page';
+import ContactPage from '../../po/pages/contact.page';
 
 // 1. Define los tipos para tus fixtures: {nombreFixture: nombreClase}
 //    Esto le da a TypeScript el autocompletado.

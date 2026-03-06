@@ -1,5 +1,5 @@
 import{ test as setup, expect} from '@playwright/test';
-import LoginPage from '../pages/login.page';
+import LoginPage from '../../po/pages/login.page';
 
 //Storage state - session reuse
 setup('Create user auth', async({page})=>{

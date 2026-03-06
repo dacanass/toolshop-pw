@@ -45,6 +45,14 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+
+    {
+      name:'api-tests',
+      testMatch: /tests\/api\/.*\.spec\.ts/,
+      use:{
+        baseURL:process.env.API_URL,
+      }
+    },
     //Storage state - Session reuse
     //donde se guardara el archivo de sesion
     {

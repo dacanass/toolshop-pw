@@ -1,6 +1,24 @@
 import {faker} from '@faker-js/faker';
 
-export function createRandomUser() {
+export type Address = {
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  postal_code: string;
+};
+
+export type User = {
+  first_name: string;
+  last_name: string;
+  dob: string;
+  phone: string;
+  email: string;
+  password: string;
+  address: Address;
+};
+
+export function createRandomUser(): User {
   return {
     first_name: faker.person.firstName(),
     last_name: faker.person.lastName(),
