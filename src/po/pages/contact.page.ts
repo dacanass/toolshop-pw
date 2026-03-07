@@ -50,8 +50,13 @@ export default class ContactPage extends BasePage {
 
     await this.subject.selectOption(subject);
     await this.message.fill(message);
-    await this.sendButton.click();
   }
+
+  async submitContactForm() {
+    await this.sendButton.waitFor({ state: 'visible' });
+    await this.sendButton.click();
+}
+
   async attachFile(fileName: string) {
     const filePath = path.join(process.cwd(), 'src', 'po', 'utils', fileName);
     await this.attachment.setInputFiles(filePath);

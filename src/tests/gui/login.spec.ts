@@ -13,14 +13,12 @@ test.describe('Login Feature', async () => {
   test('should login with newly registered user', async ({ page, loginPage, request }) => {
     const newUser= createRandomUser();
     await registerUser(request, newUser);
-    await loginPage.goto();
     await loginPage.login(newUser.email, newUser.password);
     await expect(page).toHaveURL(/.*account/);
     // await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
     await expect(page.getByTestId("nav-menu")).toContainText(newUser.first_name);
     await expect(page.getByTestId("page-title")).toContainText("My account")
   });
-
 
   test('should succesfuly login with valid credentials', async ({ page, loginPage }) => {
     await loginPage.login(`${email[0]}`, `${password}`);
@@ -44,12 +42,12 @@ test.describe('Login Feature', async () => {
   });
 
   test('should display error message when password is empty', async ({ loginPage }) => {
-    await loginPage.login(`${email}`, '');
+    await loginPage.login(email[0], '');
     await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordEmpty);
   });
 
   test('should display error message when password is too short', async ({ loginPage }) => {
-    await loginPage.login(`${email}`, 'pa');
+    await loginPage.login(email[0], 'pa');
     await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordLenght);
   });
 });

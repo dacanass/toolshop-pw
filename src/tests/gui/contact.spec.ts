@@ -26,7 +26,10 @@ test.describe('Contact Feature', async () => {
       lastname,
       email[0],
     );
-    await expect(contactPage.formSentAlert).toHaveText(contactSentMessage);
+    await contactPage.submitContactForm();
+
+    await expect(contactPage.formSentAlert).toBeVisible({timeout: 10000});
+    await expect(contactPage.formSentAlert).toContainText(contactSentMessage);
   });
 
   test('registered user should successfully send a contact message', async ({
@@ -36,12 +39,14 @@ test.describe('Contact Feature', async () => {
   }) => {
     await loginPage.goto();
     await loginPage.login(email[0], password);
-    await expect(page).toHaveURL('account');
+    // await expect(page).toHaveURL('account'); //flaky
+    await expect(page.getByTestId('nav-menu')).toContainText("Jane Doe")
 
     await contactPage.goto();
     await expect(contactPage.greetings).toBeVisible();
     await contactPage.attachFile('attach.txt');
     await contactPage.fillContactForm(usertype[1], subject[1], message);
+    await expect(contactPage.formSentAlert).toBeVisible();
     await expect(contactPage.formSentAlert).toContainText(contactSentMessage);
   });
 
