@@ -64,7 +64,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'], 
       // storageState: '../../.auth/user.json', //Aqui le decimos a los tests que usen el estado guardado
      },
-      dependencies:['setup'], //Esto asegura que el setup corra primero
+      // dependencies:['setup'], //Esto asegura que el setup corra primero
     },
 
     {

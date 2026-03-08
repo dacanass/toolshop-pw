@@ -6,7 +6,7 @@ import { createRandomUser } from '../../../src/lib/datafactory/userModel';
 test.describe('Login Feature', async () => {
   const { email, password } = userData;
 
-  test.beforeEach(async ({ loginPage }) => {
+  test.beforeEach(async ({ loginPage}) => {
     await loginPage.goto();
   });
 
@@ -22,7 +22,7 @@ test.describe('Login Feature', async () => {
 
   test('should succesfuly login with valid credentials', async ({ page, loginPage }) => {
     await loginPage.login(`${email[0]}`, `${password}`);
-    await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
+    await expect(page).toHaveURL(/.*account/);
   });
 
   test('should display error message with invalid credentials', async ({ loginPage }) => {

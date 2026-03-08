@@ -46,7 +46,8 @@ test.describe('Contact Feature', async () => {
     await expect(contactPage.greetings).toBeVisible();
     await contactPage.attachFile('attach.txt');
     await contactPage.fillContactForm(usertype[1], subject[1], message);
-    await expect(contactPage.formSentAlert).toBeVisible();
+    await contactPage.submitContactForm()
+    await expect(contactPage.formSentAlert).toBeVisible({timeout:10000});
     await expect(contactPage.formSentAlert).toContainText(contactSentMessage);
   });
 

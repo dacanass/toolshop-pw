@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 import BasePage from './base.page';
 
 export default class LoginPage extends BasePage {
@@ -20,8 +20,11 @@ export default class LoginPage extends BasePage {
   }
 
   async login(email: string, password: string) {
+    await this.emailField.waitFor({state:'visible'});
     await this.emailField.fill(email);
+    await this.passwordField.waitFor({state:'visible'});
     await this.passwordField.fill(password);
+    await expect(this.submit).toBeEnabled()
     await this.submit.click();
   }
 
