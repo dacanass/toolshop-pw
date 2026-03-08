@@ -62,7 +62,10 @@ jobs:
       # 6. Ejecuta las pruebas de Playwright
       - name: Run Playwright tests
         run: npx playwright test --config=src/config/playwright.config.ts --project=${{ matrix.browser }} # Ejecuta solo las pruebas para el navegador del job actual
-
+        env:
+          # Aquí mapeas: VARIABLE_EN_EL_CODIGO: ${{ secrets.NOMBRE_EN_GITHUB }}
+          baseUrl: ${{ secrets.baseUrl }}
+          API_URL: ${{ secrets.API_URL }}
       # 7. (Opcional pero muy recomendado) Sube el reporte de resultados
       # Este paso se ejecuta siempre, incluso si las pruebas fallan, para que puedas ver el reporte.
       - uses: actions/upload-artifact@v4
