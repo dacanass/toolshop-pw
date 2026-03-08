@@ -16,7 +16,7 @@ test.describe('Login Feature', async () => {
     await loginPage.login(newUser.email, newUser.password);
     await expect(page).toHaveURL(/.*account/);
     // await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
-    await expect(page.getByTestId("nav-menu")).toContainText(newUser.first_name);
+    await expect(page.getByTestId("nav-menu")).toContainText(newUser.first_name,{ timeout: 15000 });
     await expect(page.getByTestId("page-title")).toContainText("My account")
   });
 

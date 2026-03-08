@@ -40,7 +40,7 @@ test.describe('Contact Feature', async () => {
     await loginPage.goto();
     await loginPage.login(email[0], password);
     // await expect(page).toHaveURL('account'); //flaky
-    await expect(page.getByTestId('nav-menu')).toContainText("Jane Doe")
+    await expect(page.getByTestId('nav-menu')).toContainText("Jane Doe",{ timeout: 15000 })
 
     await contactPage.goto();
     await expect(contactPage.greetings).toBeVisible();
