@@ -19,13 +19,18 @@ export default class LoginPage extends BasePage {
     this.generalErrorMessage = this.page.getByTestId('login-error');
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string, failExpected: boolean = false) {
     await this.emailField.waitFor({state:'visible'});
     await this.emailField.fill(email);
+
     await this.passwordField.waitFor({state:'visible'});
     await this.passwordField.fill(password);
+
     await expect(this.submit).toBeEnabled()
     await this.submit.click();
+    if (!failExpected) {
+        await this.submit.waitFor({ state: 'hidden', timeout: 10000 });
+    }
   }
 
   async goto(): Promise<void> {

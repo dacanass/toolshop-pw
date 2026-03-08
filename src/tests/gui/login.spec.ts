@@ -26,28 +26,28 @@ test.describe('Login Feature', async () => {
   });
 
   test('should display error message with invalid credentials', async ({ loginPage }) => {
-    await loginPage.login(`${email[1]}`, `${password}`);
+    await loginPage.login(`${email[1]}`, `${password}`, true);
     await expect(loginPage.generalErrorMessage).toBeVisible();
     await expect(loginPage.generalErrorMessage).toContainText(errorMessage.loginInvalidCredentials);
   });
 
   test('should display error when email field is empty', async ({ loginPage }) => {
-    await loginPage.login('', `${password}`);
+    await loginPage.login('', `${password}`, true);
     await expect(loginPage.emailErrorMessage).toContainText(errorMessage.loginEmailEmpty);
   });
 
   test('should display error message when email format is invalid ', async ({ loginPage }) => {
-    await loginPage.login('aaa', `${password}`);
+    await loginPage.login('aaa', `${password}`, true);
     await expect(loginPage.emailErrorMessage).toContainText(errorMessage.loginEmailInvalidFormat);
   });
 
   test('should display error message when password is empty', async ({ loginPage }) => {
-    await loginPage.login(email[0], '');
+    await loginPage.login(email[0], '', true);
     await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordEmpty);
   });
 
   test('should display error message when password is too short', async ({ loginPage }) => {
-    await loginPage.login(email[0], 'pa');
+    await loginPage.login(email[0], 'pa', true);
     await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordLenght);
   });
 });
