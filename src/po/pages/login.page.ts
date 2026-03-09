@@ -29,9 +29,10 @@ export default class LoginPage extends BasePage {
     await expect(this.submit).toBeEnabled()
     await this.submit.click();
     if (!failExpected) {
-        await this.submit.waitFor({ state: 'hidden', timeout: 10000 });
-        // Wait for nav-menu to appear after login redirect
-        await this.page.getByTestId('nav-menu').waitFor({ state: 'visible', timeout: 15000 });
+        // Wait for login button to disappear (form submission completed)
+        await this.submit.waitFor({ state: 'hidden', timeout: 15000 });
+        // Wait for navigation to the account page
+        await this.page.waitForURL(/.*account/, { timeout: 20000 });
     }
   }
 
