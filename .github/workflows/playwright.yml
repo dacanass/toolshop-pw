@@ -5,7 +5,7 @@ name: Playwright Tests
 on:
   # Ejecutar en cada push a la rama 'main' o 'master'
   push:
-    branches: [main, master]
+    branches: [main, master, quality/test-refactoring]
   # Ejecutar en cada pull request dirigido a la rama 'main' o 'master'
   pull_request:
     branches: [main, master]
@@ -64,7 +64,7 @@ jobs:
         run: npx playwright test --config=src/config/playwright.config.ts --project=${{ matrix.browser }} # Ejecuta solo las pruebas para el navegador del job actual
         env:
           # Aquí mapeas: VARIABLE_EN_EL_CODIGO: ${{ secrets.NOMBRE_EN_GITHUB }}
-          baseUrl: ${{ secrets.baseUrl }}
+          BASE_URL: ${{ secrets.BASE_URL }}
           API_URL: ${{ secrets.API_URL }}
       # 7. (Opcional pero muy recomendado) Sube el reporte de resultados
       # Este paso se ejecuta siempre, incluso si las pruebas fallan, para que puedas ver el reporte.

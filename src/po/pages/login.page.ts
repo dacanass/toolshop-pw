@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 import BasePage from './base.page';
 
 export default class LoginPage extends BasePage {
@@ -19,10 +19,21 @@ export default class LoginPage extends BasePage {
     this.generalErrorMessage = this.page.getByTestId('login-error');
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string, failExpected: boolean = false) {
+    await this.emailField.waitFor({state:'visible'});
     await this.emailField.fill(email);
+
+    await this.passwordField.waitFor({state:'visible'});
     await this.passwordField.fill(password);
+
+    await expect(this.submit).toBeEnabled()
     await this.submit.click();
+    if (!failExpected) {
+        // Wait for login button to disappear (form submission completed)
+        await this.submit.waitFor({ state: 'hidden', timeout: 15000 });
+        // Wait for navigation to the account page
+        await this.page.waitForURL(/.*account/, { timeout: 20000 });
+    }
   }
 
   async goto(): Promise<void> {

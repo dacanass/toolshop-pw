@@ -39,14 +39,16 @@ test.describe('Contact Feature', async () => {
   }) => {
     await loginPage.goto();
     await loginPage.login(email[0], password);
-    // await expect(page).toHaveURL('account'); //flaky
-    await expect(page.getByTestId('nav-menu')).toContainText("Jane Doe")
+    // Wait for nav-menu to appear
+    await expect(page.getByTestId('nav-menu')).toBeVisible({ timeout: 30000 });
+    await expect(page.getByTestId('nav-menu')).toContainText("Jane Doe",{ timeout: 5000 })
 
     await contactPage.goto();
     await expect(contactPage.greetings).toBeVisible();
     await contactPage.attachFile('attach.txt');
     await contactPage.fillContactForm(usertype[1], subject[1], message);
-    await expect(contactPage.formSentAlert).toBeVisible();
+    await contactPage.submitContactForm()
+    await expect(contactPage.formSentAlert).toBeVisible({timeout:10000});
     await expect(contactPage.formSentAlert).toContainText(contactSentMessage);
   });
 

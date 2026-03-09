@@ -10,6 +10,7 @@ setup('Create user auth', async({page})=>{
   const loginPage = new LoginPage(page)
 
   await loginPage.goto()
+  await page.waitForLoadState('networkidle')
 
   await loginPage.login(email,password);
 
