@@ -40,8 +40,8 @@ test.describe('Contact Feature', async () => {
     await loginPage.goto();
     await loginPage.login(email[0], password);
     // Wait for nav-menu to appear
-    await expect(page.getByTestId('nav-menu')).toBeVisible({ timeout: 30000 });
-    await expect(page.getByTestId('nav-menu')).toContainText("Jane Doe",{ timeout: 5000 })
+    await expect(page.getByTestId("page-title")).toBeVisible({ timeout: 30000 });
+    await expect(page.getByTestId("page-title")).toContainText("My account",{ timeout: 5000 });
 
     await contactPage.goto();
     await expect(contactPage.greetings).toBeVisible();

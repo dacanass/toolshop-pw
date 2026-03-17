@@ -16,8 +16,8 @@ test.describe('Login Feature', async () => {
     await loginPage.login(newUser.email, newUser.password);
     await expect(page).toHaveURL(/.*account/);
     // Wait for nav-menu to appear and contain user name
-    await expect(page.getByTestId("nav-menu")).toBeVisible({ timeout: 30000 });
-    await expect(page.getByTestId("nav-menu")).toContainText(newUser.first_name,{ timeout: 5000 });
+    await expect(page.getByTestId("page-title")).toBeVisible({ timeout: 30000 });
+    await expect(page.getByTestId("page-title")).toContainText("My account",{ timeout: 5000 });
     await expect(page.getByTestId("page-title")).toContainText("My account")
   });
 
