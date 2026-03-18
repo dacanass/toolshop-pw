@@ -19,22 +19,29 @@ export default class LoginPage extends BasePage {
     this.generalErrorMessage = this.page.getByTestId('login-error');
   }
 
-  async login(email: string, password: string, failExpected: boolean = false) {
+  // Método para flujos exitosos
+  async loginSuccess(email: string, password: string) {
+    await this.fillLoginForm(email, password);
+    await this.submit.click();
+    await this.submit.waitFor({ state: 'hidden' });  
+}
+
+  // Método para flujos de error
+  async loginInvalid(email: string, password: string) {
+    await this.fillLoginForm(email, password);
+    await this.submit.click();
+    // Aquí no esperamos navegación, porque sabemos que no ocurrirá
+}
+
+
+  // Método privado para no repetir código de llenado (DRY)
+  private async fillLoginForm(email: string, password: string) {
     await this.emailField.waitFor({state:'visible'});
     await this.emailField.fill(email);
-
     await this.passwordField.waitFor({state:'visible'});
+    await expect(this.submit).toBeEnabled();
     await this.passwordField.fill(password);
-
-    await expect(this.submit).toBeEnabled()
-    await this.submit.click();
-    if (!failExpected) {
-        // Wait for login button to disappear (form submission completed)
-        await this.submit.waitFor({ state: 'hidden', timeout: 15000 });
-        // Wait for navigation to the account page
-        await this.page.waitForURL(/.*account/, { timeout: 20000 });
-    }
-  }
+}
 
   async goto(): Promise<void> {
     await super.goto('auth/login');

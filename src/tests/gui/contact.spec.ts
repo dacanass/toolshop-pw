@@ -38,10 +38,9 @@ test.describe('Contact Feature', async () => {
     loginPage,
   }) => {
     await loginPage.goto();
-    await loginPage.login(email[0], password);
+    await loginPage.loginSuccess(email[0], password);
     // Wait for nav-menu to appear
-    await expect(page.getByTestId("page-title")).toBeVisible({ timeout: 30000 });
-    await expect(page.getByTestId("page-title")).toContainText("My account",{ timeout: 5000 });
+    await expect(page.getByRole('heading',{name:"My account"})).toBeVisible();
 
     await contactPage.goto();
     await expect(contactPage.greetings).toBeVisible();

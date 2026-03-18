@@ -12,7 +12,7 @@ setup('Create user auth', async({page})=>{
   await loginPage.goto()
   await page.waitForLoadState('networkidle')
 
-  await loginPage.login(email,password);
+  await loginPage.loginSuccess(email,password);
 
   await expect(page.getByTestId('nav-menu')).toContainText("Jane Doe");
 
