@@ -23,25 +23,24 @@ export default class LoginPage extends BasePage {
   async loginSuccess(email: string, password: string) {
     await this.fillLoginForm(email, password);
     await this.submit.click();
-    await this.submit.waitFor({ state: 'hidden' });  
-}
+    await this.submit.waitFor({ state: 'hidden' });
+  }
 
   // Método para flujos de error
   async loginInvalid(email: string, password: string) {
     await this.fillLoginForm(email, password);
     await this.submit.click();
     // Aquí no esperamos navegación, porque sabemos que no ocurrirá
-}
-
+  }
 
   // Método privado para no repetir código de llenado (DRY)
   private async fillLoginForm(email: string, password: string) {
-    await this.emailField.waitFor({state:'visible'});
+    await this.emailField.waitFor({ state: 'visible' });
     await this.emailField.fill(email);
-    await this.passwordField.waitFor({state:'visible'});
+    await this.passwordField.waitFor({ state: 'visible' });
     await expect(this.submit).toBeEnabled();
     await this.passwordField.fill(password);
-}
+  }
 
   async goto(): Promise<void> {
     await super.goto('auth/login');

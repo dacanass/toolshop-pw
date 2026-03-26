@@ -39,7 +39,6 @@ test.describe('Contact Feature', async () => {
   }) => {
     await loginPage.goto();
     await loginPage.loginSuccess(email[0], password);
-    // Wait for nav-menu to appear
     await expect(page.getByRole('heading',{name:"My account"})).toBeVisible();
 
     await contactPage.goto();
