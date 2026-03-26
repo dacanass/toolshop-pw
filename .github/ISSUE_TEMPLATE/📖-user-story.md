@@ -1,5 +1,5 @@
 ---
-name: User Story
+name: "\U0001F4D6 User Story"
 about: Standard structure for requirements and their test cases
 title: "[TS-XXX-00]: Story title"
 labels: user-story
