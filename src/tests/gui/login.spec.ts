@@ -6,21 +6,27 @@ import { createRandomUser } from '../../../src/lib/datafactory/userModel';
 test.describe('Login Feature', async () => {
   const { email, password } = userData;
 
-  test.beforeEach(async ({ loginPage}) => {
+  test.beforeEach(async ({ loginPage }) => {
     await loginPage.goto();
   });
 
   test('should login with newly registered user', async ({ page, loginPage, request }) => {
     //Register new user
-    const newUser= createRandomUser();
+    const newUser = createRandomUser();
     await registerUser(request, newUser);
     //Login with new user
     await loginPage.loginSuccess(newUser.email, newUser.password);
     await expect(page).toHaveURL(/.*account/);
-    await expect(page.getByRole('heading',{name:"My account"})).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'My account' })).toBeVisible();
   });
 
-  test('should succesfuly login with valid credentials', async ({ page, loginPage }) => {
+  test('TC-UI-AUTH-01 : Successful Login @MOD-01 @TS-AUTH-01', async ({ page, loginPage }) => {
+    test.info().annotations.push({ type: 'test_case_id', description: 'TC-UI-AUTH-01' });
+    test.info().annotations.push({
+      type: 'test_case_desc',
+      description: 'https://github.com/dacanass/toolshop-pw/issues/21#issue-4156485267',
+    });
+
     await loginPage.loginSuccess(`${email[0]}`, `${password}`);
     await expect(page).toHaveURL(/.*account/);
   });

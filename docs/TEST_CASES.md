@@ -1,8 +1,8 @@
 # Master Test Case List - ToolShop Project
 
-| Module ID  | User Story ID | Test Case ID   | Test Case title               | Test case description                                     | Test Method (UI/API) |
-| :--------- | :------------ | :------------- | :---------------------------- | :-------------------------------------------------------- | :------------------- |
-| **MOD-01** | TS-AUTH-01    | TC-UI-AUTH-01  | Successful Login              | Enter registered email/password and click Login.          | UI                   |
+| Module ID  | User Story ID | Test Case ID   | Test Case title               | Test case description                                     | Test Method (UI/API) | Automation Path |
+| :--------- | :------------ | :------------- | :---------------------------- | :-------------------------------------------------------- | :------------------- | :-------------- |
+| **MOD-01** | TS-AUTH-01    | TC-UI-AUTH-01  | Successful Login              | Enter registered email/password and click Login.          | UI                   |                 |
 | **MOD-01** | TS-AUTH-01    | TC-UI-AUTH-02  | Login Failure - Invalid Pwd   | Enter valid email with incorrect password.                | UI                   |
 | **MOD-01** | TS-AUTH-01    | TC-UI-AUTH-03  | Frontend Validation - Empty   | Leave Email/Password blank and click Login.               | UI                   |
 | **MOD-01** | TS-AUTH-02    | TC-UI-AUTH-04  | Registration Persistence      | Register new user and attempt to login with same creds.   | UI                   |

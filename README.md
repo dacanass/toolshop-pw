@@ -114,3 +114,10 @@ Este proyecto está diseñado para ser una guía y un campo de práctica sobre:
 - ✅ **Implementar estrategias de caché** para optimizar los tiempos de ejecución en la Integración Continua.
 - ✅ **Escribir pruebas E2E limpias, legibles y mantenibles** utilizando las mejores prácticas de Playwright y TypeScript.
 - ✅ **Entender y solucionar los desafíos de las pruebas cross-browser** en un entorno automatizado.
+
+## 🧪 Quality Assurance
+
+To ensure full coverage of the ToolShop requirements, I maintain a
+live traceability matrix:
+
+- [View Requirements Traceability Matrix (RTM)](./docs/RTM.md)
