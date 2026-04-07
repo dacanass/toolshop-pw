@@ -42,7 +42,15 @@ test.describe('Login Feature', async () => {
     await expect(loginPage.emailErrorMessage).toContainText(errorMessage.loginEmailEmpty);
   });
 
-  test('should display error message when email format is invalid ', async ({ loginPage }) => {
+  test('TC-UI-AUTH-02: Login Failure - Invalid Password @MOD-01 @TS-AUTH-01', async ({
+    loginPage,
+  }) => {
+    test.info().annotations.push({ type: 'test_case_id', description: 'TC-UI-AUTH-02' });
+    test.info().annotations.push({
+      type: 'test_case_desc',
+      description: 'https://github.com/dacanass/toolshop-pw/issues/25',
+    });
+
     await loginPage.loginInvalid('aaa', `${password}`);
     await expect(loginPage.emailErrorMessage).toContainText(errorMessage.loginEmailInvalidFormat);
   });
