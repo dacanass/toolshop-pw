@@ -63,7 +63,15 @@ test.describe('Login Feature', async () => {
     await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordEmpty);
   });
 
-  test('should display error message with invalid credentials', async ({ loginPage }) => {
+  test('TC-UI-AUTH-06: Validate error message on invalid credentials @MOD-01 @TS-AUTH-01 @negative', async ({
+    loginPage,
+  }) => {
+    test.info().annotations.push({ type: 'test_case_id', description: 'TC-UI-AUTH-06' });
+    test.info().annotations.push({
+      type: 'test_case_desc',
+      description: 'https://github.com/dacanass/toolshop-pw/issues/29',
+    });
+
     await loginPage.loginInvalid(`${email[1]}`, `${password}`);
     await expect(loginPage.generalErrorMessage).toBeVisible();
     await expect(loginPage.generalErrorMessage).toContainText(errorMessage.loginInvalidCredentials);
