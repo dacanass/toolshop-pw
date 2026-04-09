@@ -77,8 +77,17 @@ test.describe('Login Feature', async () => {
     await expect(loginPage.generalErrorMessage).toContainText(errorMessage.loginInvalidCredentials);
   });
 
-  test('should display error when email field is empty', async ({ loginPage }) => {
+  test('TC-UI-AUTH-07: Validate error message when email field is submitted empty @MOD-01 @TS-AUTH-01 @negative', async ({
+    loginPage,
+  }) => {
+    test.info().annotations.push({ type: 'test_case_id', description: 'TC-UI-AUTH-07' });
+    test.info().annotations.push({
+      type: 'test_case_desc',
+      description: 'https://github.com/dacanass/toolshop-pw/issues/31',
+    });
+
     await loginPage.loginInvalid('', `${password}`);
+    await expect(loginPage.emailField).toHaveAttribute('aria-invalid', 'true');
     await expect(loginPage.emailErrorMessage).toContainText(errorMessage.loginEmailEmpty);
   });
 
