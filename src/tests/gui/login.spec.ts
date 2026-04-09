@@ -105,8 +105,17 @@ test.describe('Login Feature', async () => {
     await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordEmpty);
   });
 
-  test('should display error message when password is too short', async ({ loginPage }) => {
+  test('TC-UI-AUTH-09: Verify validation message for password field below minimum length requirements @MOD-01 @TS-AUTH-01 @negative', async ({
+    loginPage,
+  }) => {
+    test.info().annotations.push({ type: 'test_case_id', description: 'TC-UI-AUTH-09' });
+    test.info().annotations.push({
+      type: 'test_case_desc',
+      description: 'https://github.com/dacanass/toolshop-pw/issues/33',
+    });
+
     await loginPage.loginInvalid(email[0], 'pa');
+    await expect(loginPage.passwordField).toHaveAttribute('aria-invalid', 'true');
     await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordLenght);
   });
 });
