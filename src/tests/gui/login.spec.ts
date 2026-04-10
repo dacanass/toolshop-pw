@@ -3,7 +3,7 @@ import { errorMessage, userData } from '../../po/utils/data';
 import { registerUser } from '../../../src/lib/datafactory/register';
 import { createRandomUser } from '../../../src/lib/datafactory/userModel';
 
-test.describe('Login Feature', async () => {
+test.describe('Authentication: login', () => {
   const { email, password } = userData;
 
   test.beforeEach(async ({ loginPage }) => {
