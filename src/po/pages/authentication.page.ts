@@ -1,19 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './base.page';
-
-export interface UserRegistrationData {
-  firstName: string;
-  lastName: string;
-  dob: string;
-  street: string;
-  postalCode: string;
-  city: string;
-  state: string;
-  country: string;
-  phone: string;
-  email: string;
-  password: string;
-}
+import { User } from '../../lib/datafactory/userModel';
 
 export default class AuthPage extends BasePage {
   public readonly firstNameField: Locator;
@@ -45,24 +32,29 @@ export default class AuthPage extends BasePage {
     this.submitButton = this.page.getByRole('button', { name: 'Register' });
   }
 
-  async fillRegisterForm(userData: UserRegistrationData) {
+  async fillRegisterForm(userData: User) {
     await this.firstNameField.waitFor({ state: 'visible' });
-    await this.firstNameField.fill(userData.firstName);
-    await this.lastNameField.fill(userData.lastName);
+    await this.firstNameField.fill(userData.first_name);
+    await this.lastNameField.fill(userData.last_name);
     await this.dobField.fill(userData.dob);
-    await this.streetField.fill(userData.street);
-    await this.postalCodeField.fill(userData.postalCode);
-    await this.cityField.fill(userData.city);
-    await this.stateField.fill(userData.state);
-    await this.countrySelect.selectOption(userData.country);
+    await this.streetField.fill(userData.address.street);
+    await this.postalCodeField.fill(userData.address.postal_code);
+    await this.cityField.fill(userData.address.city);
+    await this.stateField.fill(userData.address.state);
+    await this.countrySelect.click();
+    await this.countrySelect.selectOption(userData.address.country);
     await this.phoneField.fill(userData.phone);
     await this.emailField.fill(userData.email);
     await this.passwordField.fill(userData.password);
   }
 
   //Metodo para registrar un usuario
-  async registerUser(userData: UserRegistrationData) {
+  async registerUser(userData: User) {
     await this.fillRegisterForm(userData);
     await this.submitButton.click();
+  }
+
+  async goto(): Promise<void> {
+    await super.goto('auth/register');
   }
 }

@@ -8,6 +8,7 @@ export default class LoginPage extends BasePage {
   public readonly emailErrorMessage: Locator;
   public readonly passwordErrorMessage: Locator;
   public readonly generalErrorMessage: Locator;
+  public readonly loginHeader: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -17,6 +18,7 @@ export default class LoginPage extends BasePage {
     this.emailErrorMessage = this.page.getByTestId('email-error');
     this.passwordErrorMessage = this.page.getByTestId('password-error');
     this.generalErrorMessage = this.page.getByTestId('login-error');
+    this.loginHeader = this.page.getByRole('heading', { name: 'Login' });
   }
 
   // Método para flujos exitosos
