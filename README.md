@@ -24,11 +24,6 @@ This repository features a robust test automation framework for the "Toolshop" d
 
 Tests are executed against a demo environment, simulating real user interactions to ensure the quality and correct behavior of the web application.
 
-## Reference Repositories:
-
-- learning-playwright-5911873: [Link](https://github.com/LinkedInLearning/learning-playwright-5911873.git)
-- playwright-essential-training-abstractions-fixtures-and-complex-scenarios-4278224: [Link](https://github.com/LinkedInLearning/playwright-essential-training-abstractions-fixtures-and-complex-scenarios-4278224.git)
-
 ---
 
 ## ✨ Key Features
@@ -155,3 +150,8 @@ src/
     ├── api/            # Integration and REST API test cases
     └── gui/            # End-to-End (E2E) user flow tests
 ```
+
+## Reference Repositories:
+
+- learning-playwright-5911873: [Link](https://github.com/LinkedInLearning/learning-playwright-5911873.git)
+- playwright-essential-training-abstractions-fixtures-and-complex-scenarios-4278224: [Link](https://github.com/LinkedInLearning/playwright-essential-training-abstractions-fixtures-and-complex-scenarios-4278224.git)
