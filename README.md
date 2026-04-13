@@ -155,3 +155,9 @@ src/
 
 - learning-playwright-5911873: [Link](https://github.com/LinkedInLearning/learning-playwright-5911873.git)
 - playwright-essential-training-abstractions-fixtures-and-complex-scenarios-4278224: [Link](https://github.com/LinkedInLearning/playwright-essential-training-abstractions-fixtures-and-complex-scenarios-4278224.git)
+
+## 🎬 Framework in Action
+
+Here is a quick demonstration of the login automated flow:
+
+![Playwright Login Demo](./assets/Animation.gif)
