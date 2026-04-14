@@ -22,6 +22,8 @@ jobs:
       fail-fast: false # No cancelar otros jobs si uno falla
       matrix:
         browser: [chromium, firefox]
+        shardIndex: [1, 2] # Divide las pruebas en 2 máquinas por navegador
+        shardTotal: [2]
     # Tiempo máximo de ejecución para el job
     timeout-minutes: 60
 
@@ -34,7 +36,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # Puedes usar la versión de Node que prefieras (18, 20, etc.)
+          node-version: '20' # Puedes usar la versión de Node que prefieras (18, 20 LTS es más estable para CI, etc.).
+          cache: 'npm' # Cache integrado de npm para node_modules
 
       # 3. Instala las dependencias del proyecto (como Playwright)
       - name: Install dependencies
@@ -61,7 +64,7 @@ jobs:
 
       # 6. Ejecuta las pruebas de Playwright
       - name: Run Playwright tests
-        run: npx playwright test --config=src/config/playwright.config.ts --project=${{ matrix.browser }} # Ejecuta solo las pruebas para el navegador del job actual
+        run: npx playwright test --project=${{ matrix.browser }} --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
         env:
           # Aquí mapeas: VARIABLE_EN_EL_CODIGO: ${{ secrets.NOMBRE_EN_GITHUB }}
           BASE_URL: ${{ secrets.BASE_URL }}

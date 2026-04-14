@@ -24,46 +24,48 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI 2 times and locally 1 time */
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 1 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'https://practicesoftwaretesting.com/',
+    baseURL: process.env.BASE_URL || 'https://practicesoftwaretesting.com/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     /*Configuracion manual: Headless mode y definicion del atributo data-testid como data-test */
     headless: true,
     testIdAttribute: 'data-test',
     // video:'retain-on-failure',
     // screenshot:'only-on-failure'
+    navigationTimeout: 30000,
+    actionTimeout: 15000,
   },
 
   /* Configure projects for major browsers */
   projects: [
-
     {
-      name:'api-tests',
+      name: 'api-tests',
       testMatch: /tests\/api\/.*\.spec\.ts/,
-      use:{
-        baseURL:process.env.API_URL,
-      }
+      use: {
+        baseURL: process.env.API_URL,
+      },
     },
     //Storage state - Session reuse
     //donde se guardara el archivo de sesion
     {
-      name:'setup',
+      name: 'setup',
       testMatch: /.*\.setup\.ts/, //Archivo que hara el login
     },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'], 
-      // storageState: '../../.auth/user.json', //Aqui le decimos a los tests que usen el estado guardado
-     },
+      use: {
+        ...devices['Desktop Chrome'],
+        // storageState: '../../.auth/user.json', //Aqui le decimos a los tests que usen el estado guardado
+      },
       // dependencies:['setup'], //Esto asegura que el setup corra primero
     },
 
