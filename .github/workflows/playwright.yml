@@ -1,79 +1,55 @@
 # Nombre del workflow que aparecerá en la pestaña "Actions" de GitHub
-name: Playwright Tests
+name: Playwright Tests (Chrome Only)
 
-# Define cuándo se ejecutará este workflow.
 on:
-  # Ejecutar en cada push a la rama 'main' o 'master'
   push:
     branches: [main, master, quality/test-refactoring]
-  # Ejecutar en cada pull request dirigido a la rama 'main' o 'master'
   pull_request:
     branches: [main, master]
-  # Permite ejecutar este workflow manualmente desde la pestaña Actions
   workflow_dispatch:
 
-# Define los trabajos (jobs) que se ejecutarán.
 jobs:
   test:
-    # El tipo de máquina virtual en la que se ejecutarán las pruebas
     runs-on: ubuntu-latest
-    # Usamos una matriz para crear un job por cada navegador
-    strategy:
-      fail-fast: false # No cancelar otros jobs si uno falla
-      matrix:
-        browser: [chromium, firefox]
-        shardIndex: [1, 2] # Divide las pruebas en 2 máquinas por navegador
-        shardTotal: [2]
-    # Tiempo máximo de ejecución para el job
     timeout-minutes: 60
 
-    # Pasos que se ejecutarán en el job
     steps:
-      # 1. Descarga tu código del repositorio a la máquina virtual
       - uses: actions/checkout@v4
 
-      # 2. Configura el entorno de Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Puedes usar la versión de Node que prefieras (18, 20 LTS es más estable para CI, etc.).
-          cache: 'npm' # Cache integrado de npm para node_modules
+          node-version: '20'
+          cache: 'npm'
 
-      # 3. Instala las dependencias del proyecto (como Playwright)
       - name: Install dependencies
-        # Usa 'npm ci' en lugar de 'npm install'. Es más rápido y seguro para entornos de CI
-        # porque instala las versiones exactas de tu archivo package-lock.json.
         run: npm ci
 
-      # 4. Revisa si los navegadores están en el caché
       - name: Cache Playwright browsers
         uses: actions/cache@v4
-        id: playwright-cache # Se le da un ID para poder referenciar este paso más adelante
+        id: playwright-cache
         with:
-          # La ruta donde Playwright guarda los navegadores en sistemas Linux
           path: ~/.cache/ms-playwright
-          # La clave del caché debe ser única por navegador para evitar colisiones.
-          key: ${{ runner.os }}-playwright-${{ matrix.browser }}-${{ hashFiles('**/package-lock.json') }}
+          # Clave fija para chromium
+          key: ${{ runner.os }}-playwright-chromium-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-playwright-${{ matrix.browser }}-
+            ${{ runner.os }}-playwright-chromium-
 
-      # 5. Instala los navegadores solo si no se encontraron en el caché
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps ${{ matrix.browser }} # Instala solo el navegador del job actual
+        # Instalamos solo chromium para ahorrar espacio y tiempo
+        run: npx playwright install --with-deps chromium
 
-      # 6. Ejecuta las pruebas de Playwright
       - name: Run Playwright tests
-        run: npx playwright test --project=${{ matrix.browser }} --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        # Ejecutamos específicamente el proyecto 'chromium'
+        run: npx playwright test --config=src/config/playwright.config.ts --project=chromium
         env:
-          # Aquí mapeas: VARIABLE_EN_EL_CODIGO: ${{ secrets.NOMBRE_EN_GITHUB }}
           BASE_URL: ${{ secrets.BASE_URL }}
           API_URL: ${{ secrets.API_URL }}
-      # 7. (Opcional pero muy recomendado) Sube el reporte de resultados
-      # Este paso se ejecuta siempre, incluso si las pruebas fallan, para que puedas ver el reporte.
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report-${{ matrix.browser }}
+          name: playwright-report-chromium
           path: playwright-report/
           retention-days: 30
