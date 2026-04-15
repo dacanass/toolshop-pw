@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  # Esta línea silencia la advertencia y activa Node 24 para las acciones
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -18,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
