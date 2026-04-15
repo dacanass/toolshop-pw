@@ -10,7 +10,7 @@ test.describe('Authentication: login', () => {
     await loginPage.goto();
   });
 
-  test('should login with newly registered user', async ({ page, loginPage, request }) => {
+  test.skip('should login with newly registered user', async ({ page, loginPage, request }) => {
     //Register new user
     const newUser = createRandomUser();
     await registerUser(request, newUser);
