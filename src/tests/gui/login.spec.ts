@@ -1,7 +1,7 @@
 import { test, expect } from './fixtures';
 import { errorMessage, userData } from '../../po/utils/data';
-import { registerUser } from '../../../src/lib/datafactory/register';
-import { createRandomUser } from '../../../src/lib/datafactory/userModel';
+import { registerUser } from '../../lib/datafactory/register';
+import { createRandomUser } from '../../lib/datafactory/userModel';
 
 test.describe('Authentication: login', () => {
   const { email, password } = userData;
