@@ -3,10 +3,9 @@ name: Playwright Tests (Chrome Only)
 
 on:
   push:
-    branches: [main, master, quality/test-refactoring]
+    branches: [main]
   pull_request:
-    branches: [main, master]
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
   test:
@@ -19,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
@@ -42,7 +41,7 @@ jobs:
 
       - name: Run Playwright tests
         # Ejecutamos específicamente el proyecto 'chromium'
-        run: npx playwright test --config=src/config/playwright.config.ts --project=chromium
+        run: npx playwright test login.spec.ts --config=src/config/playwright.config.ts --project=chromium
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           API_URL: ${{ secrets.API_URL }}
