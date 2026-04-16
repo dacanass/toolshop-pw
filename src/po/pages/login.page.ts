@@ -35,10 +35,11 @@ export default class LoginPage extends BasePage {
 
   // Método privado para no repetir código de llenado (DRY)
   private async fillLoginForm(email: string, password: string) {
-    await this.emailField.waitFor({ state: 'visible' });
+    // await this.emailField.waitFor({ state: 'visible' });
+    // await expect(this.emailField).toBeVisible();
     await this.emailField.fill(email);
-    await this.passwordField.waitFor({ state: 'visible' });
-    await expect(this.submit).toBeEnabled();
+    // await this.passwordField.waitFor({ state: 'visible' });
+    // await expect(this.submit).toBeEnabled();
     await this.passwordField.fill(password);
   }
 

@@ -10,10 +10,14 @@ test.describe('Authentication: login', () => {
     await loginPage.goto();
   });
 
-  test.skip('should login with newly registered user', async ({ page, loginPage, request }) => {
+  test('should login with newly registered user', async ({ page, loginPage, request }) => {
     //Register new user
     const newUser = createRandomUser();
     await registerUser(request, newUser);
+
+    // Forzamos la navegación DESPUÉS de registrar, ignorando que el beforeEach ya lo hizo
+    await loginPage.goto();
+
     //Login with new user
     await loginPage.loginSuccess(newUser.email, newUser.password);
     await expect(page).toHaveURL(/.*account/);
