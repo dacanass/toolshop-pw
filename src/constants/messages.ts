@@ -11,6 +11,7 @@ export const ERRORS = {
     COUNTRY_EMPTY: 'Country is required',
     PHONE_EMPTY: 'Phone is required.',
     EMAIL_EMPTY: 'Email is required',
+    EMAIL_ALREADY_EXISTS: 'A customer with this email address already exists.',
     PASSWORD_EMPTY: 'Password is required',
     PASSWORD_MIN_LENGHT: 'Password must be minimal 6 characters long.',
     PASSWORD_INVALID_CHAR: 'Password can not include invalid characters.',

@@ -30,6 +30,7 @@ export default class AuthPage extends BasePage {
   public readonly passwordAlertMin: Locator;
   public readonly passwordAlertInvalid: Locator;
   public readonly submitButton: Locator;
+  public readonly formAlert: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -45,6 +46,7 @@ export default class AuthPage extends BasePage {
     this.emailField = this.page.getByRole('textbox', { name: 'Email address' });
     this.passwordField = this.page.getByRole('textbox', { name: 'Password' });
     this.submitButton = this.page.getByRole('button', { name: 'Register' });
+
     this.firstNameAlert = this.page.getByText(ERRORS.AUTH.FIRSTNAME_EMPTY);
     this.lastNameAlert = this.page.getByText(ERRORS.AUTH.LASTNAME_EMPTY);
     this.dobFieldAlertInvalid = this.page.getByText(ERRORS.AUTH.DOB_INVALID);
@@ -59,6 +61,7 @@ export default class AuthPage extends BasePage {
     this.passwordAlert = this.page.getByText(ERRORS.AUTH.PASSWORD_EMPTY);
     this.passwordAlertMin = this.page.getByText(ERRORS.AUTH.PASSWORD_MIN_LENGHT);
     this.passwordAlertInvalid = this.page.getByText(ERRORS.AUTH.PASSWORD_INVALID_CHAR);
+    this.formAlert = this.page.getByText(ERRORS.AUTH.EMAIL_ALREADY_EXISTS);
   }
 
   async fillRegisterForm(userData: User) {

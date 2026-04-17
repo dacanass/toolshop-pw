@@ -1,6 +1,7 @@
 import { createRandomUser } from '@/lib/datafactory/userModel.js';
 import { expect, test } from '@/tests/gui/fixtures.js';
 import { ERRORS } from '@/constants/messages.js';
+import { CONFIG } from '@/config/env.js';
 
 test.describe('Authentication: Register', () => {
   test.beforeEach(async ({ authPage }) => {
@@ -33,5 +34,15 @@ test.describe('Authentication: Register', () => {
     await expect(authPage.phoneAlert).toContainText(ERRORS.AUTH.PHONE_EMPTY);
     await expect(authPage.emailAlert).toContainText(ERRORS.AUTH.EMAIL_EMPTY);
     await expect(authPage.passwordAlert).toContainText(ERRORS.AUTH.PASSWORD_EMPTY);
+  });
+
+  test('TC-UI-AUTH-12 - Validate error message for existing email @smoke @negative', async ({
+    authPage,
+  }) => {
+    const newUser = createRandomUser();
+    newUser.email = CONFIG.CUSTOMER_EMAIL;
+
+    await authPage.registerUser(newUser);
+    await expect(authPage.formAlert).toContainText(ERRORS.AUTH.EMAIL_ALREADY_EXISTS);
   });
 });
