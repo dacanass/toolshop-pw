@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import BasePage from './base.page';
+import BasePage from './base.page.js';
 import path from 'path';
 
 export default class ContactPage extends BasePage {

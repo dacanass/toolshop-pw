@@ -1,19 +1,34 @@
 import { Locator, Page } from '@playwright/test';
-import BasePage from './base.page';
-import { User } from '../../lib/datafactory/userModel';
+import BasePage from './base.page.js';
+import { User } from '@/lib/datafactory/userModel.js';
+import { ERRORS } from '@/constants/messages.js';
 
 export default class AuthPage extends BasePage {
   public readonly firstNameField: Locator;
+  public readonly firstNameAlert: Locator;
   public readonly lastNameField: Locator;
+  public readonly lastNameAlert: Locator;
   public readonly dobField: Locator;
+  public readonly dobFieldAlertInvalid: Locator;
+  public readonly dobFieldAlert: Locator;
   public readonly streetField: Locator;
+  public readonly streetAlert: Locator;
   public readonly postalCodeField: Locator;
+  public readonly postalCodeAlert: Locator;
   public readonly cityField: Locator;
+  public readonly cityAlert: Locator;
   public readonly stateField: Locator;
+  public readonly stateAlert: Locator;
   public readonly countrySelect: Locator;
+  public readonly countryAlert: Locator;
   public readonly phoneField: Locator;
+  public readonly phoneAlert: Locator;
   public readonly emailField: Locator;
+  public readonly emailAlert: Locator;
   public readonly passwordField: Locator;
+  public readonly passwordAlert: Locator;
+  public readonly passwordAlertMin: Locator;
+  public readonly passwordAlertInvalid: Locator;
   public readonly submitButton: Locator;
 
   constructor(page: Page) {
@@ -30,6 +45,20 @@ export default class AuthPage extends BasePage {
     this.emailField = this.page.getByRole('textbox', { name: 'Email address' });
     this.passwordField = this.page.getByRole('textbox', { name: 'Password' });
     this.submitButton = this.page.getByRole('button', { name: 'Register' });
+    this.firstNameAlert = this.page.getByText(ERRORS.AUTH.FIRSTNAME_EMPTY);
+    this.lastNameAlert = this.page.getByText(ERRORS.AUTH.LASTNAME_EMPTY);
+    this.dobFieldAlertInvalid = this.page.getByText(ERRORS.AUTH.DOB_INVALID);
+    this.dobFieldAlert = this.page.getByText(ERRORS.AUTH.DOB_EMPTY);
+    this.streetAlert = this.page.getByText(ERRORS.AUTH.STREET_EMPTY);
+    this.postalCodeAlert = this.page.getByText(ERRORS.AUTH.POSTCODE_EMPTY);
+    this.cityAlert = this.page.getByText(ERRORS.AUTH.CITY_EMPTY);
+    this.stateAlert = this.page.getByText(ERRORS.AUTH.STATE_EMPTY);
+    this.countryAlert = this.page.getByText(ERRORS.AUTH.COUNTRY_EMPTY);
+    this.phoneAlert = this.page.getByText(ERRORS.AUTH.PHONE_EMPTY);
+    this.emailAlert = this.page.getByText(ERRORS.AUTH.EMAIL_EMPTY);
+    this.passwordAlert = this.page.getByText(ERRORS.AUTH.PASSWORD_EMPTY);
+    this.passwordAlertMin = this.page.getByText(ERRORS.AUTH.PASSWORD_MIN_LENGHT);
+    this.passwordAlertInvalid = this.page.getByText(ERRORS.AUTH.PASSWORD_INVALID_CHAR);
   }
 
   async fillRegisterForm(userData: User) {

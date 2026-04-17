@@ -1,21 +1,22 @@
-import{ test as setup, expect} from '@playwright/test';
-import LoginPage from '../../po/pages/login.page';
+import { test as setup, expect } from '@playwright/test';
+import LoginPage from '@/po/pages/login.page.js';
+import { CONFIG } from '@/config/env.js';
+import path from 'path';
 
 //Storage state - session reuse
-setup('Create user auth', async({page})=>{
-  const email = 'customer@practicesoftwaretesting.com';
-  const password = 'welcome01';
-  const authFile = '.auth/user.json'; //al ejecutar el codigo se crea automaticamente la carpeta donde se almacenara la data
+setup('Create user auth', async ({ page }) => {
+  const email = CONFIG.CUSTOMER_EMAIL;
+  const password = CONFIG.CUSTOMER_PASSWORD;
+  const authFile = path.resolve('.auth/user.json');
 
-  const loginPage = new LoginPage(page)
+  const loginPage = new LoginPage(page);
 
-  await loginPage.goto()
-  await page.waitForLoadState('networkidle')
+  await loginPage.goto();
+  await page.waitForLoadState('networkidle');
 
-  await loginPage.loginSuccess(email,password);
+  await loginPage.loginSuccess(email, password);
 
-  await expect(page.getByTestId('nav-menu')).toContainText("Jane Doe");
+  await expect(page.getByTestId('nav-menu')).toBeVisible();
 
-  await page.context().storageState({path:authFile})
-
-})
+  await page.context().storageState({ path: authFile });
+});

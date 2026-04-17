@@ -16,11 +16,6 @@ export const userData = {
 };
 
 export const errorMessage = {
-  loginEmailEmpty: 'Email is required',
-  loginEmailInvalidFormat: 'Email format is invalid',
-  loginPasswordEmpty: 'Password is required',
-  loginPasswordLenght: 'Password length is invalid',
-  loginInvalidCredentials: 'Invalid email or password',
   contactfirstnameEmpty: 'First name is required',
   contactlastnameEmpty: 'Last name is required',
   contactemailEmpty: 'Email is required',

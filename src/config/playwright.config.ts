@@ -8,6 +8,7 @@ import { dirname } from 'path';
  */
 import dotenv from 'dotenv';
 import path from 'path';
+import { CONFIG } from '@/config/env.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,7 +19,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: '../tests',
+  testDir: path.resolve(__dirname, '../tests'),
   /* Run tests in files in parallel */
   fullyParallel: process.env.CI ? false : true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -33,7 +34,7 @@ export default defineConfig({
 
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.BASE_URL || 'https://practicesoftwaretesting.com/',
+    baseURL: CONFIG.BASE_URL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
@@ -59,15 +60,14 @@ export default defineConfig({
     //donde se guardara el archivo de sesion
     {
       name: 'setup',
-      testMatch: /.*\.setup\.ts/, //Archivo que hara el login
+      testMatch: '**/*.setup.ts', //Archivo que hara el login
     },
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        // storageState: '../../.auth/user.json', //Aqui le decimos a los tests que usen el estado guardado
       },
-      // dependencies:['setup'], //Esto asegura que el setup corra primero
+      dependencies: ['setup'], //Esto asegura que el setup corra primero
     },
 
     {
