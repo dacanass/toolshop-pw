@@ -2,6 +2,7 @@ import { createRandomUser } from '@/lib/datafactory/userModel.js';
 import { expect, test } from '@/tests/gui/fixtures.js';
 import { ERRORS } from '@/constants/messages.js';
 import { CONFIG } from '@/config/env.js';
+import { generateRandomPastDate } from '@/po/utils/date-utils.js';
 
 test.describe('Authentication: Register', () => {
   test.beforeEach(async ({ authPage }) => {
@@ -44,5 +45,13 @@ test.describe('Authentication: Register', () => {
 
     await authPage.registerUser(newUser);
     await expect(authPage.formAlert).toContainText(ERRORS.AUTH.EMAIL_ALREADY_EXISTS);
+  });
+
+  test('TC-UI-AUTH-13 - Validate format for the "Date of Birth"', async ({ authPage }) => {
+    const newUser = createRandomUser();
+    newUser.dob = generateRandomPastDate();
+
+    await authPage.registerUser(newUser);
+    await expect(authPage.dobFieldAlertInvalid).toContainText(ERRORS.AUTH.DOB_INVALID);
   });
 });

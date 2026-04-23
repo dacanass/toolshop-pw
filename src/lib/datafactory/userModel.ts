@@ -6,6 +6,7 @@ export type Address = {
   state: string;
   country: string;
   postal_code: string;
+  house_number: string;
 };
 
 export type User = {
@@ -32,6 +33,7 @@ export function createRandomUser(): User {
       state: faker.location.state(),
       country: 'US',
       postal_code: faker.location.zipCode('#####'),
+      house_number: faker.location.buildingNumber(),
     },
   };
 }

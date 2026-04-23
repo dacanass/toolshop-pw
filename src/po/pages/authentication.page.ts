@@ -15,6 +15,8 @@ export default class AuthPage extends BasePage {
   public readonly streetAlert: Locator;
   public readonly postalCodeField: Locator;
   public readonly postalCodeAlert: Locator;
+  public readonly houseNumberField: Locator;
+  public readonly houseNumberAlert: Locator;
   public readonly cityField: Locator;
   public readonly cityAlert: Locator;
   public readonly stateField: Locator;
@@ -39,6 +41,7 @@ export default class AuthPage extends BasePage {
     this.dobField = this.page.getByRole('textbox', { name: 'Date of Birth *' });
     this.streetField = this.page.getByRole('textbox', { name: 'Street' });
     this.postalCodeField = this.page.getByRole('textbox', { name: 'Postal code' });
+    this.houseNumberField = this.page.getByRole('textbox', { name: 'House number' });
     this.cityField = this.page.getByRole('textbox', { name: 'City' });
     this.stateField = this.page.getByRole('textbox', { name: 'State' });
     this.countrySelect = this.page.getByRole('combobox', { name: 'Country' });
@@ -53,6 +56,7 @@ export default class AuthPage extends BasePage {
     this.dobFieldAlert = this.page.getByText(ERRORS.AUTH.DOB_EMPTY);
     this.streetAlert = this.page.getByText(ERRORS.AUTH.STREET_EMPTY);
     this.postalCodeAlert = this.page.getByText(ERRORS.AUTH.POSTCODE_EMPTY);
+    this.houseNumberAlert = this.page.getByText(ERRORS.AUTH.HOUSE_NUMBER_EMPTY);
     this.cityAlert = this.page.getByText(ERRORS.AUTH.CITY_EMPTY);
     this.stateAlert = this.page.getByText(ERRORS.AUTH.STATE_EMPTY);
     this.countryAlert = this.page.getByText(ERRORS.AUTH.COUNTRY_EMPTY);
@@ -71,6 +75,7 @@ export default class AuthPage extends BasePage {
     await this.dobField.fill(userData.dob);
     await this.streetField.fill(userData.address.street);
     await this.postalCodeField.fill(userData.address.postal_code);
+    await this.houseNumberField.fill(userData.address.house_number);
     await this.cityField.fill(userData.address.city);
     await this.stateField.fill(userData.address.state);
     await this.countrySelect.click();

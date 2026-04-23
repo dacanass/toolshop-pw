@@ -6,6 +6,7 @@ export const ERRORS = {
     DOB_INVALID: 'Please enter a valid date in YYYY-MM-DD format.',
     STREET_EMPTY: 'Street is required',
     POSTCODE_EMPTY: 'Postcode is required',
+    HOUSE_NUMBER_EMPTY: 'House number is required ',
     CITY_EMPTY: 'City is required',
     STATE_EMPTY: 'State is required',
     COUNTRY_EMPTY: 'Country is required',
