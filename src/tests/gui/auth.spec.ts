@@ -77,4 +77,20 @@ test.describe('Authentication: Register', () => {
     await authPage.registerUser(newUser);
     await expect(authPage.passwordAlertInvalid).toBeVisible();
   });
+
+  test('TC-UI-AUTH-16: Verify password field masks characters @security', async ({ authPage }) => {
+    const secretText = 'SecretText123';
+
+    // 1. Escribimos en el campo (aunque no es estrictamente necesario para validar el tipo)
+    await authPage.passwordField.fill(secretText);
+
+    // 2. Verificación técnica: El atributo 'type' debe ser 'password'
+    // Esta es la forma más confiable de asegurar que el navegador aplicará el enmascaramiento
+    await expect(authPage.passwordField).toHaveAttribute('type', 'password');
+
+    // 3. Verificación de seguridad: Asegurarse de que el valor no sea visible como texto plano
+    // El valor interno sigue siendo el texto, pero el tipo 'password' garantiza el enmascaramiento visual
+    const inputType = await authPage.passwordField.getAttribute('type');
+    await expect(inputType).toBe('password');
+  });
 });
