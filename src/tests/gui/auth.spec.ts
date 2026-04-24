@@ -69,4 +69,12 @@ test.describe('Authentication: Register', () => {
       await expect(authPage.phoneAlert).toBeVisible();
     },
   );
+
+  test('TC-UI-AUTH-15: Password Complexity Validation', async ({ authPage }) => {
+    const newUser = createRandomUser();
+    newUser.password = 'Pass1234';
+
+    await authPage.registerUser(newUser);
+    await expect(authPage.passwordAlertInvalid).toBeVisible();
+  });
 });
