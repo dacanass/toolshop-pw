@@ -54,4 +54,19 @@ test.describe('Authentication: Register', () => {
     await authPage.registerUser(newUser);
     await expect(authPage.dobFieldAlertInvalid).toContainText(ERRORS.AUTH.DOB_INVALID);
   });
+
+  test.fail(
+    'TC-UI-AUTH-14: Validate data integrity and length constraints @smoke @regresion',
+    async ({ authPage }) => {
+      const newUser = createRandomUser();
+      newUser.first_name = 'A'.repeat(201);
+      newUser.address.postal_code = 'ABCDE';
+      newUser.phone = 'FGHIJ';
+
+      await authPage.registerUser(newUser);
+      await expect(authPage.firstNameAlert).toBeVisible();
+      await expect(authPage.postalCodeAlert).toBeVisible();
+      await expect(authPage.phoneAlert).toBeVisible();
+    },
+  );
 });
