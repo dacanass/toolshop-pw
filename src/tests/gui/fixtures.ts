@@ -1,8 +1,9 @@
 import { test as base } from '@playwright/test';
-import HomePage from '../../po/pages/home.page';
-import HeaderbarComponent from '../../po/components/header-bar.component';
-import LoginPage from '../../po/pages/login.page';
-import ContactPage from '../../po/pages/contact.page';
+import HomePage from '@/po/pages/home.page.js';
+import HeaderbarComponent from '@/po/components/header-bar.component.js';
+import LoginPage from '@/po/pages/login.page.js';
+import ContactPage from '@/po/pages/contact.page.js';
+import AuthPage from '@/po/pages/authentication.page.js';
 
 // 1. Define los tipos para tus fixtures: {nombreFixture: nombreClase}
 //    Esto le da a TypeScript el autocompletado.
@@ -11,6 +12,7 @@ type MyFixtures = {
   headerBar: HeaderbarComponent;
   loginPage: LoginPage;
   contactPage: ContactPage;
+  authPage: AuthPage;
 };
 
 // 2. Extiende el 'test' base de Playwright con tus propias fixtures.
@@ -28,6 +30,9 @@ export const test = base.extend<MyFixtures>({
   },
   contactPage: async ({ page }, use) => {
     await use(new ContactPage(page));
+  },
+  authPage: async ({ page }, use) => {
+    await use(new AuthPage(page));
   },
 });
 

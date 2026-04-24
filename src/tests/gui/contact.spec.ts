@@ -1,8 +1,8 @@
-import { test, expect } from './fixtures';
-import { errorMessage, successMessage, userData } from '../../po/utils/data';
+import { test, expect } from '@/tests/gui/fixtures.js';
+import { errorMessage, successMessage, userData } from '@/po/utils/data.js';
 
 test.describe('Contact Feature', async () => {
-  const { email, password, firstname, lastname, message, subject, usertype } = userData;
+  const { email, firstname, lastname, message, subject, usertype } = userData;
 
   const { contactSentMessage } = successMessage;
 
@@ -28,26 +28,23 @@ test.describe('Contact Feature', async () => {
     );
     await contactPage.submitContactForm();
 
-    await expect(contactPage.formSentAlert).toBeVisible({timeout: 10000});
+    await expect(contactPage.formSentAlert).toBeVisible({ timeout: 10000 });
     await expect(contactPage.formSentAlert).toContainText(contactSentMessage);
   });
 
-  test('registered user should successfully send a contact message', async ({
-    page,
-    contactPage,
-    loginPage,
-  }) => {
-    await loginPage.goto();
-    await loginPage.loginSuccess(email[0], password);
-    await expect(page.getByRole('heading',{name:"My account"})).toBeVisible();
+  test.describe('Authenticated Contact', () => {
+    // Indicamos manualmente que este bloque usará la sesión guardada
+    test.use({ storageState: '.auth/user.json' });
 
-    await contactPage.goto();
-    await expect(contactPage.greetings).toBeVisible();
-    await contactPage.attachFile('attach.txt');
-    await contactPage.fillContactForm(usertype[1], subject[1], message);
-    await contactPage.submitContactForm()
-    await expect(contactPage.formSentAlert).toBeVisible({timeout:10000});
-    await expect(contactPage.formSentAlert).toContainText(contactSentMessage);
+    test('registered user should successfully send a contact message', async ({ contactPage }) => {
+      await contactPage.goto();
+      await expect(contactPage.greetings).toBeVisible();
+      await contactPage.attachFile('attach.txt');
+      await contactPage.fillContactForm(usertype[1], subject[1], message);
+      await contactPage.submitContactForm();
+      await expect(contactPage.formSentAlert).toBeVisible({ timeout: 10000 });
+      await expect(contactPage.formSentAlert).toContainText(contactSentMessage);
+    });
   });
 
   test('should display error messages when fields are empty', async ({ contactPage }) => {

@@ -49,6 +49,8 @@ jobs:
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           API_URL: ${{ secrets.API_URL }}
+          CUSTOMER_EMAIL: ${{ secrets.CUSTOMER_EMAIL }}
+          CUSTOMER_PASSWORD: ${{ secrets.CUSTOMER_PASSWORD }}
 
       - uses: actions/upload-artifact@v4
         if: always()

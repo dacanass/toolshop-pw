@@ -1,7 +1,9 @@
-import { test, expect } from './fixtures';
-import { errorMessage, userData } from '../../po/utils/data';
-import { registerUser } from '../../lib/datafactory/register';
-import { createRandomUser } from '../../lib/datafactory/userModel';
+import { test, expect } from '@/tests/gui/fixtures.js';
+import { userData } from '@/po/utils/data.js';
+import { registerUser } from '@/lib/datafactory/register.js';
+import { createRandomUser } from '@/lib/datafactory/userModel.js';
+import { ERRORS } from '@/constants/messages.js';
+import { CONFIG } from '@/config/env.js';
 
 test.describe('Authentication: login', () => {
   const { email, password } = userData;
@@ -34,7 +36,7 @@ test.describe('Authentication: login', () => {
       description: 'https://github.com/dacanass/toolshop-pw/issues/21#issue-4156485267',
     });
 
-    await loginPage.loginSuccess(`${email[0]}`, `${password}`);
+    await loginPage.loginSuccess(CONFIG.CUSTOMER_EMAIL, CONFIG.CUSTOMER_PASSWORD);
     await expect(page).toHaveURL(/.*account/);
   });
 
@@ -48,7 +50,7 @@ test.describe('Authentication: login', () => {
     });
 
     await loginPage.loginInvalid('aaa', `${password}`);
-    await expect(loginPage.emailErrorMessage).toContainText(errorMessage.loginEmailInvalidFormat);
+    await expect(loginPage.emailErrorMessage).toContainText(ERRORS.LOGIN.EMAIL_INVALID);
   });
 
   test('TC-UI-AUTH-03: Validate error messages on empty fields @MOD-01 @TS-AUTH-01 @negative', async ({
@@ -63,8 +65,8 @@ test.describe('Authentication: login', () => {
     await loginPage.loginInvalid('', '');
     await expect(loginPage.emailField).toHaveAttribute('aria-invalid', 'true');
     await expect(loginPage.passwordField).toHaveAttribute('aria-invalid', 'true');
-    await expect(loginPage.emailErrorMessage).toContainText(errorMessage.loginEmailEmpty);
-    await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordEmpty);
+    await expect(loginPage.emailErrorMessage).toContainText(ERRORS.LOGIN.EMAIL_EMPTY);
+    await expect(loginPage.passwordErrorMessage).toContainText(ERRORS.LOGIN.PASSWORD_EMPTY);
   });
 
   test('TC-UI-AUTH-06: Validate error message on invalid credentials @MOD-01 @TS-AUTH-01 @negative', async ({
@@ -78,7 +80,7 @@ test.describe('Authentication: login', () => {
 
     await loginPage.loginInvalid(`${email[1]}`, `${password}`);
     await expect(loginPage.generalErrorMessage).toBeVisible();
-    await expect(loginPage.generalErrorMessage).toContainText(errorMessage.loginInvalidCredentials);
+    await expect(loginPage.generalErrorMessage).toContainText(ERRORS.LOGIN.INVALID_CREDENTIALS);
   });
 
   test('TC-UI-AUTH-07: Validate error message when email field is submitted empty @MOD-01 @TS-AUTH-01 @negative', async ({
@@ -92,7 +94,7 @@ test.describe('Authentication: login', () => {
 
     await loginPage.loginInvalid('', `${password}`);
     await expect(loginPage.emailField).toHaveAttribute('aria-invalid', 'true');
-    await expect(loginPage.emailErrorMessage).toContainText(errorMessage.loginEmailEmpty);
+    await expect(loginPage.emailErrorMessage).toContainText(ERRORS.LOGIN.EMAIL_EMPTY);
   });
 
   test('TC-UI-AUTH-08: Verify validation message for empty password field during login @MOD-01 @TS-AUTH-01 @negative', async ({
@@ -106,7 +108,7 @@ test.describe('Authentication: login', () => {
 
     await loginPage.loginInvalid(email[0], '');
     await expect(loginPage.passwordField).toHaveAttribute('aria-invalid', 'true');
-    await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordEmpty);
+    await expect(loginPage.passwordErrorMessage).toContainText(ERRORS.LOGIN.PASSWORD_EMPTY);
   });
 
   test('TC-UI-AUTH-09: Verify validation message for password field below minimum length requirements @MOD-01 @TS-AUTH-01 @negative', async ({
@@ -120,6 +122,6 @@ test.describe('Authentication: login', () => {
 
     await loginPage.loginInvalid(email[0], 'pa');
     await expect(loginPage.passwordField).toHaveAttribute('aria-invalid', 'true');
-    await expect(loginPage.passwordErrorMessage).toContainText(errorMessage.loginPasswordLenght);
+    await expect(loginPage.passwordErrorMessage).toContainText(ERRORS.LOGIN.PASSWORD_INVALID);
   });
 });
