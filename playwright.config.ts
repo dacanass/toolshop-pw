@@ -1,25 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
 import dotenv from 'dotenv';
-import path from 'path';
-import { CONFIG } from '@/config/env.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config();
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: path.resolve(__dirname, '../tests'),
+  testDir: './src/tests',
   /* Run tests in files in parallel */
   fullyParallel: process.env.CI ? false : true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -34,7 +22,7 @@ export default defineConfig({
 
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: CONFIG.BASE_URL,
+    baseURL: process.env.BASE_URL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
@@ -66,13 +54,18 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
+        // storageState: '.auth/user.json',
       },
       dependencies: ['setup'], //Esto asegura que el setup corra primero
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        ...devices['Desktop Firefox'],
+        // storageState: '.auth/user.json',
+      },
+      dependencies: ['setup'], //Esto asegura que el setup corra primero
     },
 
     // {

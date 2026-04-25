@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './base.page.js';
-import { User } from '@/lib/datafactory/userModel.js';
+import { User } from '@/datafactories/userModel.js';
 import { ERRORS } from '@/constants/messages.js';
 
 export default class AuthPage extends BasePage {

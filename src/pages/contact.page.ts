@@ -58,7 +58,7 @@ export default class ContactPage extends BasePage {
   }
 
   async attachFile(fileName: string) {
-    const filePath = path.join(process.cwd(), 'src', 'po', 'utils', fileName);
+    const filePath = path.join(process.cwd(), 'src', 'utils', fileName);
     await this.attachment.setInputFiles(filePath);
   }
 

@@ -1,12 +1,11 @@
 import { test as setup, expect } from '@playwright/test';
-import LoginPage from '@/po/pages/login.page.js';
-import { CONFIG } from '@/config/env.js';
+import LoginPage from '@/pages/login.page.js';
 import path from 'path';
 
 //Storage state - session reuse
 setup('Create user auth', async ({ page }) => {
-  const email = CONFIG.CUSTOMER_EMAIL;
-  const password = CONFIG.CUSTOMER_PASSWORD;
+  const email = process.env.CUSTOMER_EMAIL!;
+  const password = process.env.CUSTOMER_PASSWORD!;
   const authFile = path.resolve('.auth/user.json');
 
   const loginPage = new LoginPage(page);
