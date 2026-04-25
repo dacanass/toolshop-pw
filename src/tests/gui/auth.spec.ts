@@ -1,8 +1,7 @@
-import { createRandomUser } from '@/lib/datafactory/userModel.js';
+import { createRandomUser } from '@/datafactories/userModel.js';
 import { expect, test } from '@/tests/gui/fixtures.js';
 import { ERRORS } from '@/constants/messages.js';
-import { CONFIG } from '@/config/env.js';
-import { generateRandomPastDate } from '@/po/utils/date-utils.js';
+import { generateRandomPastDate } from '@/utils/date-utils.js';
 
 test.describe('Authentication: Register', () => {
   test.beforeEach(async ({ authPage }) => {
@@ -41,7 +40,7 @@ test.describe('Authentication: Register', () => {
     authPage,
   }) => {
     const newUser = createRandomUser();
-    newUser.email = CONFIG.CUSTOMER_EMAIL;
+    newUser.email = process.env.CUSTOMER_EMAIL!;
 
     await authPage.registerUser(newUser);
     await expect(authPage.formAlert).toContainText(ERRORS.AUTH.EMAIL_ALREADY_EXISTS);

@@ -1,5 +1,5 @@
 import { test, expect } from '@/tests/gui/fixtures.js';
-import { errorMessage, successMessage, userData } from '@/po/utils/data.js';
+import { errorMessage, successMessage, userData } from '@/utils/data.js';
 
 test.describe('Contact Feature', async () => {
   const { email, firstname, lastname, message, subject, usertype } = userData;

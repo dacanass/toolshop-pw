@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import BasePage from '../pages/base.page';
+import BasePage from '../pages/base.page.js';
 
 export default class HeaderbarComponent extends BasePage {
   public readonly userMenu: Locator;

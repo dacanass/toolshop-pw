@@ -1,9 +1,8 @@
 import { test, expect } from '@/tests/gui/fixtures.js';
-import { userData } from '@/po/utils/data.js';
-import { registerUser } from '@/lib/datafactory/register.js';
-import { createRandomUser } from '@/lib/datafactory/userModel.js';
+import { userData } from '@/utils/data.js';
+import { registerUser } from '@/datafactories/register.js';
+import { createRandomUser } from '@/datafactories/userModel.js';
 import { ERRORS } from '@/constants/messages.js';
-import { CONFIG } from '@/config/env.js';
 
 test.describe('Authentication: login', () => {
   const { email, password } = userData;
@@ -36,7 +35,7 @@ test.describe('Authentication: login', () => {
       description: 'https://github.com/dacanass/toolshop-pw/issues/21#issue-4156485267',
     });
 
-    await loginPage.loginSuccess(CONFIG.CUSTOMER_EMAIL, CONFIG.CUSTOMER_PASSWORD);
+    await loginPage.loginSuccess(process.env.CUSTOMER_EMAIL!, process.env.CUSTOMER_PASSWORD!);
     await expect(page).toHaveURL(/.*account/);
   });
 
