@@ -1,5 +1,5 @@
 import { APIRequestContext } from "@playwright/test";
-import { User } from "../lib/datafactory/userModel";
+import { User } from "@/datafactories/userModel.js";
 
 export class UserController{
   private request: APIRequestContext;
